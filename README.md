@@ -1,6 +1,6 @@
 
 # firesprout
-## a seedling web app for you to grow
+## a seedling web app you can grow
 
 Forked from [angularFire-seed](https://github.com/firebase/angularFire-seed), this app provides a basis for a web app using 
 [Firebase](http://www.firebase.com), [AngularJS](http://www.angularjs.org), [Bootstrap](https://github.com/twbs/bootstrap) and a few other goodies. 
