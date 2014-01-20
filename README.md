@@ -1,27 +1,13 @@
 
-# angular-seed — the seed for AngularFire apps
+# firesprout
+## a seedling web app for you to grow
 
-This project is an application skeleton for a typical [AngularFire](http://angularfire.com/) web app.
-This library allows you to quickly bootstrap real-time apps using [Firebase](http://www.firebase.com) and [AngularJS](http://www.angularjs.org).
+Forked from [angularFire-seed](https://github.com/firebase/angularFire-seed), this app provides a basis for a web app using 
+[Firebase](http://www.firebase.com), [AngularJS](http://www.angularjs.org), [Bootstrap](https://github.com/twbs/bootstrap) and a few other goodies. 
 
-The seed contains AngularJS libraries, test libraries and a bunch of scripts all preconfigured for
-instant web development gratification. Just clone the repo (or download the zip/tarball), start up
-our (or yours) webserver and you are ready to develop and test your application.
+## How to use firesprout
 
-The seed app doesn't do much, just shows how to wire controllers and views together and persist them
-in Firebase. You can check it out by opening app/index.html in your browser (might not work
-file `file://` scheme in certain browsers, see note below).
-
-_Note: While angular, angularFire, and Firebase can be used client-side-only, and it's possible to create
-apps that don't require a backend server at all, we recommend hosting the project files using a local
-webserver during development to avoid issues with security restrictions (sandbox) in browsers. The
-sandbox implementation varies between browsers, but quite often prevents things like cookies, xhr,
-etc to function properly when an html page is opened via `file://` scheme instead of `http://`._
-
-
-## How to use angularFire-seed
-
- 1. Clone the angularFire-seed repository
+ 1. Clone the repository
  1. Open app/js/config.js and add your Firebase URL
  1. Go to your Firebase URL and enable email/password authentication under the Auth tab
  1. Start hacking...
