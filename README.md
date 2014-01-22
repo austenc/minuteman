@@ -137,6 +137,7 @@ More information on Firebase: http://firebase.com
 More information on AngularJS: http://angularjs.org/
 
 ## TODO
+- Setup bower.json!
 - Add angular-bootstrap
 - Add bootstrap LESS files and basic less structure
 - Add gruntfile / LESS handling / watch
