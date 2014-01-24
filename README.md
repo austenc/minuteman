@@ -135,8 +135,3 @@ fetch the changes and merge them into your project with git.
 More information on AngularFire: http://angularfire.com
 More information on Firebase: http://firebase.com
 More information on AngularJS: http://angularjs.org/
-
-## TODO
-- Add gruntfile / LESS handling / watch
-- Update the views / markup to be bootstrap basic..
--- May need to update E2E tests too
