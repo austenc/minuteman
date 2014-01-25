@@ -1,10 +1,15 @@
 <h2>Home</h2>
 
-<p class="status good" ng-show-auth="login">Hello! You are logged in.</p>
-<p class="status" ng-show-auth="logout">Not logged in</p>
+<p class="alert alert-success status good" ng-show-auth="login">Hello! You are logged in.</p>
+<p class="status alert alert-warning" ng-show-auth="logout">Not logged in</p>
 <p class="status error" ng-show-auth="error">{{auth.error}}</p>
 
-<input ng-model="syncedValue" type="text" /> <b>{{syncedValue}}</b>
+<p class="lead"><b>{{syncedValue}}</b></p>
+<div class="row form-group">
+	<div class="col-sm-6">
+		<input ng-model="syncedValue" class="form-control" type="text" />
+	</div>
+</div>
 
-<p>Open <a ng-href="{{FBURL}}/syncedValue">Forge</a> or a <a target="_blank" href="#/">new window</a> to see this input update in real time:</p>
+<p>Open <a ng-href="{{FBURL}}/syncedValue">Forge</a> or a <a target="_blank" href="#/">new window</a> to see the input update in real time.</p>
 

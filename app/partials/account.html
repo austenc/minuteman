@@ -31,12 +31,13 @@
                 <label>Confirm Password:</label>
                 <input type="password" class="form-control" ng-keypress="reset()" ng-model="confirm"/>
             </div>
+            <button class="btn btn-warning" ng-click="updatePassword()">Update Password</button>
         </div>
-        <button class="btn btn-success" ng-click="updatePassword()">update password</button>
+        
 
         <p class="error alert alert-danger" ng-show="err">{{err}}</p>
         <p class="good alert alert-success" ng-show="msg">{{msg}}</p>
     </fieldset>
 </form>
 
-<button class="btn btn-warning" ng-click="logout()">Log Out</button>
+<button class="btn btn-danger" ng-click="logout()">Log Out</button>
