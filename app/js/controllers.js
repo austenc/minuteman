@@ -2,7 +2,14 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
+angular.module('myApp.controllers', []) 
+
+   .controller('HeaderCtrl', ['$scope', 'loginService', function($scope, loginService) {
+      $scope.logout = function() {
+         loginService.logout();
+      }
+   }])
+
    .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
       syncData('syncedValue').$bind($scope, 'syncedValue');
    }])
