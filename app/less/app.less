@@ -7,10 +7,23 @@
 /* ==========================================================================
    Basic Styles, put yours here!
    ========================================================================== */
-body{
+html, body{
+	height: 100%;
+
+}
+#wrap{
+	min-height: 100%;
+	height: auto;
+	// Negative indent by footer height, padd bottom by footer height
+	margin: 0 auto -60px;
+	padding-bottom: 50px;
 	padding-top: 50px; // account for the fixed main navbar!
 }
 
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
 /* ==========================================================================
    Media Queries, only included once a screen is a certain min width
    ========================================================================== */

@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-  <title>My AngularJS App</title>
+  <title>MinuteMan - What Are You Working On?</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/app.min.css"/>
 </head>
 <body ng-cloak-auth class="hide">
 
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl" ng-include="'partials/header.html'"></div>
+  <div id="wrap">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl" ng-include="'partials/header.html'"></div>
+    <div class="container" ng-view></div>
+  </div>
 
-  <div class="container" ng-view></div>
-
-  <div class="text-muted text-center"><small>Firesprout v<span app-version></span></small></div>
+  <div id="footer" class="text-muted text-center"><small>MinuteMan v<span app-version></span></small></div>
 
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>

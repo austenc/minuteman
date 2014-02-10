@@ -14,22 +14,6 @@ angular.module('myApp.controllers', [])
       syncData('syncedValue').$bind($scope, 'syncedValue');
    }])
 
-  .controller('ChatCtrl', ['$scope', 'syncData', function($scope, syncData) {
-      $scope.newMessage = null;
-
-      // constrain number of messages by limit into syncData
-      // add the array into $scope.messages
-      $scope.messages = syncData('messages', 10);
-
-      // add new messages to the list
-      $scope.addMessage = function() {
-         if( $scope.newMessage ) {
-            $scope.messages.$add({text: $scope.newMessage});
-            $scope.newMessage = null;
-         }
-      };
-   }])
-
    .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
       $scope.email = null;
       $scope.pass = null;
