@@ -8,16 +8,17 @@
 	<div class="form-group lead text-center" ng-show="working">
 		{{counter | formatTime}}
 	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-success btn-lg center-block" ng-show=" ! working" ng-click="addTask()">Start Working</button>
-		<button type="submit" class="btn btn-danger btn-lg center-block" ng-show="working" ng-click="pause()">Take a Break</button>
+	<div class="form-group text-center">
+		<button type="submit" class="btn btn-info btn-lg" ng-show=" ! working" ng-click="addTask()">Start Working</button>
+		<button type="submit" class="btn btn-warning btn-lg" ng-show="working" ng-click="pause()">Take a Break</button>
+		<button type="submit" class="btn btn-success btn-lg" ng-show="paused" ng-click="resume()">Resume</button>
+		<button type="submit" class="btn btn-danger btn-lg" ng-show="working" ng-click="finish()">Task Complete</button>
 	</div>
 	<br><br><br>
 	<div class="well" ng-show="tasks.$getIndex().length">
 		<p class="lead">Recent Tasks</p>
 		<ul>
-			<li ng-repeat="task in tasks | orderByPriority | reverse">{{task.text}}...{{task.start}}</li>
+			<li ng-repeat="task in tasks | orderByPriority | reverse">{{task.text}}<small class="text-muted"> {{task.timeTaken | formatTime}} spent</small></li>
 		</ul>
 	</div>
 </div>
-{{taskDB}}

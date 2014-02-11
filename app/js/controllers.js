@@ -17,6 +17,7 @@ angular.module('myApp.controllers', [])
       $scope.tasks   = null;
       $scope.taskDB  = null; // for tracking current task
       $scope.working = false;
+      $scope.paused  = false;
       $scope.counter = 0;
 
       // constrain number of messages by limit into syncData
@@ -33,13 +34,23 @@ angular.module('myApp.controllers', [])
 
       var workTime = null;
 
-      // Stop work on current task
       $scope.pause = function(){
-         $scope.working = false;  
+         $timeout.cancel(workTime);
+         $scope.paused  = true;
+      }
+
+      $scope.resume = function(){
+         workTime = $timeout($scope.onTimeout, 1000);
+         $scope.paused  = false;
+      }
+
+      // Stop work on current task
+      $scope.finish = function(){
          $timeout.cancel(workTime);
 
-         // set time taken
-         $scope.taskDB = null;
+         $scope.working = false;  
+         $scope.counter = 0;
+         $scope.taskDB  = null;
       }
 
       // Start / Add new task
