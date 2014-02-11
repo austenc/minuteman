@@ -2,14 +2,15 @@
 
 <div ng-show-auth="login">
 	<div class="form-group">
-		<input type="text" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
+		<input type="text" ng-hide="working" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
+		<input type="text" ng-show="working" ng-model="theTask" class="form-control input-lg input-disabled" disabled="disabled" placeholder="What are you working on?">
 	</div>
 	<div class="form-group lead text-center" ng-show="working">
 		{{counter | formatTime}}
 	</div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-success form-control" ng-show=" ! working" ng-click="addTask()">Start Working</button>
-		<button type="submit" class="btn btn-danger center-block" ng-show="working" ng-click="pause()">Take a Break</button>
+		<button type="submit" class="btn btn-success btn-lg center-block" ng-show=" ! working" ng-click="addTask()">Start Working</button>
+		<button type="submit" class="btn btn-danger btn-lg center-block" ng-show="working" ng-click="pause()">Take a Break</button>
 	</div>
 	<br><br><br>
 	<div class="well" ng-show="tasks.$getIndex().length">
@@ -19,3 +20,4 @@
 		</ul>
 	</div>
 </div>
+{{taskDB}}

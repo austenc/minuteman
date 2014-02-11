@@ -15,6 +15,7 @@ angular.module('myApp.controllers', [])
 
       $scope.theTask = null;
       $scope.tasks   = null;
+      $scope.taskDB  = null; // for tracking current task
       $scope.working = false;
       $scope.counter = 0;
 
@@ -25,6 +26,9 @@ angular.module('myApp.controllers', [])
       $scope.onTimeout = function(){
          $scope.counter++;
          workTime = $timeout($scope.onTimeout, 1000);
+
+         if(!!$scope.taskDB)
+            $scope.tasks.$child($scope.taskDB).$child('timeTaken').$set($scope.counter);
       }
 
       var workTime = null;
@@ -33,6 +37,9 @@ angular.module('myApp.controllers', [])
       $scope.pause = function(){
          $scope.working = false;  
          $timeout.cancel(workTime);
+
+         // set time taken
+         $scope.taskDB = null;
       }
 
       // Start / Add new task
@@ -43,7 +50,10 @@ angular.module('myApp.controllers', [])
             $scope.working = true;
 
             // Add the task to the user's tasks!
-            $scope.tasks.$add({text: $scope.theTask, start: new Date()});
+            $scope.tasks.$add({text: $scope.theTask, start: new Date()}).then(function(ref){
+               $scope.taskDB = ref.name();
+            });
+
          }
       };
    }])
