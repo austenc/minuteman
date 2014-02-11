@@ -18,7 +18,9 @@
 	<div class="well" ng-show="tasks.$getIndex().length">
 		<p class="lead">Recent Tasks</p>
 		<ul>
-			<li ng-repeat="task in tasks | orderByPriority | reverse">{{task.text}}<small class="text-muted"> {{task.timeTaken | formatTime}} spent</small></li>
+			<li ng-repeat="task in tasks | orderByPriority | reverse">
+				{{task.text}} <small class="text-muted" ng-show="task.timeTaken">{{task.timeTaken | formatTime}} taken</small>
+			</li>
 		</ul>
 	</div>
 </div>
