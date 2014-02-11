@@ -11,28 +11,39 @@ angular.module('myApp.controllers', [])
    }])
 
    // HOME
-   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
+   .controller('HomeCtrl', ['$scope', '$timeout', 'syncData', function($scope, $timeout, syncData) {
 
       $scope.theTask = null;
       $scope.tasks   = null;
       $scope.working = false;
+      $scope.counter = 0;
 
       // constrain number of messages by limit into syncData
       $scope.tasks = syncData('tasks').$child($scope.auth.user.uid);
 
+      // Setup the timer for later
+      $scope.onTimeout = function(){
+         $scope.counter++;
+         workTime = $timeout($scope.onTimeout, 1000);
+      }
+
+      var workTime = null;
+
       // Stop work on current task
       $scope.pause = function(){
          $scope.working = false;  
+         $timeout.cancel(workTime);
       }
 
       // Start / Add new task
       $scope.addTask = function() {
          if( $scope.theTask ) {
             // update the UI
+            workTime = $timeout($scope.onTimeout, 1000);
             $scope.working = true;
 
             // Add the task to the user's tasks!
-            $scope.tasks.$add({text: $scope.theTask});
+            $scope.tasks.$add({text: $scope.theTask, start: new Date()});
          }
       };
    }])

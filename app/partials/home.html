@@ -4,17 +4,18 @@
 	<div class="form-group">
 		<input type="text" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
 	</div>
-	
+	<div class="form-group lead text-center" ng-show="working">
+		{{counter | formatTime}}
+	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-success form-control" ng-show=" ! working" ng-click="addTask()">Start Working</button>
-		<button type="submit" class="btn btn-danger form-control" ng-show="working" ng-click="pause()">Take a Break</button>
+		<button type="submit" class="btn btn-danger center-block" ng-show="working" ng-click="pause()">Take a Break</button>
 	</div>
-
 	<br><br><br>
 	<div class="well" ng-show="tasks.$getIndex().length">
 		<p class="lead">Recent Tasks</p>
 		<ul>
-			<li ng-repeat="task in tasks | orderByPriority | reverse">{{task.text}}</li>
+			<li ng-repeat="task in tasks | orderByPriority | reverse">{{task.text}}...{{task.start}}</li>
 		</ul>
 	</div>
 </div>
