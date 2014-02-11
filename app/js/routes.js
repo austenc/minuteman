@@ -17,8 +17,7 @@ angular.module('myApp.routes', ['ngRoute'])
       });
 
       $routeProvider.when('/login', {
-         templateUrl: 'partials/login.html',
-         controller: 'LoginCtrl'
+         templateUrl: 'partials/login.html'
       });
 
       $routeProvider.otherwise({redirectTo: '/'});
