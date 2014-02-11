@@ -2,9 +2,13 @@
 
 <div ng-show-auth="login">
 	<div class="form-group">
-		<input type="text" class="form-control input-lg" placeholder="What are you working on?">
+		<input type="text" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
 	</div>
-	<button class="btn btn-success form-control">Start Working</button>
+	<button type="submit" class="btn btn-success form-control" ng-click="addTask()">Start Working</button>
+
+	<ul ng-show="tasks">
+    <li ng-repeat="task in tasks | orderByPriority | reverse">{{message.text}}</li>
+</ul>
 </div>
 
 <p class="status alert alert-warning" ng-show-auth="logout">Please login to track your tasks.</p>

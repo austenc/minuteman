@@ -10,10 +10,26 @@ angular.module('myApp.controllers', [])
       }
    }])
 
-   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
-      syncData('syncedValue').$bind($scope, 'syncedValue');
+   // HOME
+   .controller('HomeCtrl', ['$scope', 'syncData', 'loginService', function($scope, syncData, loginService) {
+      
+      $scope.theTask = null;
+
+      // constrain number of messages by limit into syncData
+      $scope.tasks = syncData('tasks', 10);
+
+      // add new messages to the list
+      $scope.addTask = function() {
+         if( $scope.theTask ) {
+            // Add the task to the user's tasks!
+            $scope.tasks.$child($scope.auth.user.id).$add({text: $scope.theTask});
+         }
+      };
+
+
    }])
 
+   // LOGIN
    .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
       $scope.email = null;
       $scope.pass = null;
