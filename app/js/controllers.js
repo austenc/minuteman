@@ -11,22 +11,30 @@ angular.module('myApp.controllers', [])
    }])
 
    // HOME
-   .controller('HomeCtrl', ['$scope', 'syncData', 'loginService', function($scope, syncData, loginService) {
-      
+   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
+
       $scope.theTask = null;
+      $scope.tasks   = null;
+      $scope.working = false;
 
       // constrain number of messages by limit into syncData
-      $scope.tasks = syncData('tasks', 10);
+      $scope.tasks = syncData('tasks').$child($scope.auth.user.uid);
 
-      // add new messages to the list
+      // Stop work on current task
+      $scope.pause = function(){
+         $scope.working = false;  
+      }
+
+      // Start / Add new task
       $scope.addTask = function() {
          if( $scope.theTask ) {
+            // update the UI
+            $scope.working = true;
+
             // Add the task to the user's tasks!
-            $scope.tasks.$child($scope.auth.user.id).$add({text: $scope.theTask});
+            $scope.tasks.$add({text: $scope.theTask});
          }
       };
-
-
    }])
 
    // LOGIN
