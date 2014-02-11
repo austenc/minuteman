@@ -9,10 +9,10 @@
 		{{counter | formatTime}}
 	</div>
 	<div class="form-group text-center">
-		<button type="submit" class="btn btn-info btn-lg" ng-show=" ! working" ng-click="addTask()">Start Working</button>
-		<button type="submit" class="btn btn-warning btn-lg" ng-show="working" ng-click="pause()">Take a Break</button>
-		<button type="submit" class="btn btn-success btn-lg" ng-show="paused" ng-click="resume()">Resume</button>
-		<button type="submit" class="btn btn-danger btn-lg" ng-show="working" ng-click="finish()">Task Complete</button>
+		<button type="submit" class="btn btn-info btn-lg" ng-show=" ! working" ng-click="addTask()"><span class="glyphicon glyphicon-time"></span> Start Working</button>
+		<button type="submit" class="btn btn-warning btn-lg" ng-show="working" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span> Take a Break</button>
+		<button type="submit" class="btn btn-success btn-lg" ng-show="paused" ng-click="resume()"><span class="glyphicon glyphicon-retweet"></span> Resume</button>
+		<button type="submit" class="btn btn-danger btn-lg" ng-show="working" ng-click="finish()"><span class="glyphicon glyphicon-check"></span> Task Complete</button>
 	</div>
 	<br><br><br>
 	<div class="well" ng-show="tasks.$getIndex().length">

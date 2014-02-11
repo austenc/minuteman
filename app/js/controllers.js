@@ -50,6 +50,7 @@ angular.module('myApp.controllers', [])
 
          $scope.working = false;  
          $scope.counter = 0;
+         $scope.theTask = null;
          $scope.taskDB  = null;
       }
 
