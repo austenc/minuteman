@@ -16,6 +16,7 @@ angular.module('myApp.controllers', [])
       $scope.theTask      = null;
       $scope.tasks        = null;
       $scope.taskDB       = null; // for tracking current task
+      $scope.currentBreak = null; // current break ref
       $scope.working      = false;
       $scope.slacking     = false;
       $scope.paused       = false;
@@ -31,9 +32,9 @@ angular.module('myApp.controllers', [])
       // for break time!
       var breakTime = null
 
-      // Watch the main counter to prompt for regular break times
+      // Watch the main counter to prompt for regular break times (every 30min)
       $scope.$watch('counter', function(){
-         if($scope.counter > 0 && $scope.counter % (1*60) == 0) 
+         if($scope.counter > 0 && $scope.counter % (30*60) == 0) 
             $scope.takeBreak();
       });
 
@@ -56,6 +57,9 @@ angular.module('myApp.controllers', [])
       $scope.breakTimer = function(){
          $scope.breakCounter++;
          breakTime = $timeout($scope.breakTimer, 1000);
+
+         if((!!$scope.taskDB) && (!!$scope.currentBreak))
+            $scope.tasks.$child($scope.taskDB).$child('breaks').$child($scope.currentBreak).$child('timeTaken').$set($scope.breakCounter);
       }
 
       // Main timer
@@ -71,6 +75,11 @@ angular.module('myApp.controllers', [])
          // stop main work timer
          $timeout.cancel(workTime);
 
+         // add new break to firebase
+         $scope.tasks.$child($scope.taskDB).$child('breaks').$add({start: new Date(), timeTaken:0}).then(function(ref){
+               $scope.currentBreak = ref.name();
+         });         
+
          // start break timer
          breakTime = $timeout($scope.breakTimer, 1000);
          
@@ -81,6 +90,7 @@ angular.module('myApp.controllers', [])
          // reset the break time for next break
          $timeout.cancel(breakTime);
          $scope.breakCounter = 0;
+         $scope.currentBreak = null;
 
          // Setup main counter and start going!
          workTime = $timeout($scope.taskTimer, 1000);
@@ -90,12 +100,16 @@ angular.module('myApp.controllers', [])
 
       // Stop work on current task
       $scope.finish = function(){
+         // cancel any running timers
          $timeout.cancel(workTime);
-
-         $scope.working = false;  
-         $scope.counter = 0;
-         $scope.theTask = null;
-         $scope.taskDB  = null;
+         $timeout.cancel(breakTime);
+         $scope.paused       = false;
+         $scope.working      = false;  
+         $scope.breakCounter = 0;
+         $scope.counter      = 0;
+         $scope.theTask      = null;
+         $scope.taskDB       = null;
+         $scope.currentBreak = null;
       }
 
       // Start / Add new task
