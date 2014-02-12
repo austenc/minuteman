@@ -13,35 +13,79 @@ angular.module('myApp.controllers', [])
    // HOME
    .controller('HomeCtrl', ['$scope', '$timeout', 'syncData', function($scope, $timeout, syncData) {
 
-      $scope.theTask = null;
-      $scope.tasks   = null;
-      $scope.taskDB  = null; // for tracking current task
-      $scope.working = false;
-      $scope.paused  = false;
-      $scope.counter = 0;
+      $scope.theTask      = null;
+      $scope.tasks        = null;
+      $scope.taskDB       = null; // for tracking current task
+      $scope.working      = false;
+      $scope.slacking     = false;
+      $scope.paused       = false;
+      $scope.counter      = 0;
+      $scope.breakCounter = 0;
 
       // constrain number of messages by limit into syncData
       $scope.tasks = syncData('tasks').$child($scope.auth.user.uid);
 
-      // Setup the timer for later
-      $scope.onTimeout = function(){
+      // for the main counter / timer
+      var workTime = null;
+
+      // for break time!
+      var breakTime = null
+
+      // Watch the main counter to prompt for regular break times
+      $scope.$watch('counter', function(){
+         if($scope.counter > 0 && $scope.counter % (1*60) == 0) 
+            $scope.takeBreak();
+      });
+
+      // Slacker watcher for breaktime (set for 5 minutes)
+      $scope.$watch('breakCounter', function(){
+         if($scope.breakCounter >= 5*60) // 5 minutes
+            $scope.slacking = true;
+      });
+
+      // confirm() dialog to take a break or not
+      $scope.takeBreak = function(){
+         if(confirm('It\'s time for a break! Take 5?') == true)
+         {
+            // Break time! Add a new break to firebase, show timer as such..
+            $scope.pause();
+         }
+      }
+
+      // Break timer
+      $scope.breakTimer = function(){
+         $scope.breakCounter++;
+         breakTime = $timeout($scope.breakTimer, 1000);
+      }
+
+      // Main timer
+      $scope.taskTimer = function(){
          $scope.counter++;
-         workTime = $timeout($scope.onTimeout, 1000);
+         workTime = $timeout($scope.taskTimer, 1000);
 
          if(!!$scope.taskDB)
             $scope.tasks.$child($scope.taskDB).$child('timeTaken').$set($scope.counter);
       }
 
-      var workTime = null;
-
       $scope.pause = function(){
+         // stop main work timer
          $timeout.cancel(workTime);
+
+         // start break timer
+         breakTime = $timeout($scope.breakTimer, 1000);
+         
          $scope.paused  = true;
       }
 
       $scope.resume = function(){
-         workTime = $timeout($scope.onTimeout, 1000);
-         $scope.paused  = false;
+         // reset the break time for next break
+         $timeout.cancel(breakTime);
+         $scope.breakCounter = 0;
+
+         // Setup main counter and start going!
+         workTime = $timeout($scope.taskTimer, 1000);
+         $scope.paused   = false;
+         $scope.slacking = false;
       }
 
       // Stop work on current task
@@ -58,7 +102,7 @@ angular.module('myApp.controllers', [])
       $scope.addTask = function() {
          if( $scope.theTask ) {
             // update the UI
-            workTime = $timeout($scope.onTimeout, 1000);
+            workTime = $timeout($scope.taskTimer, 1000);
             $scope.working = true;
 
             // Add the task to the user's tasks!

@@ -1,16 +1,21 @@
 <h2 ng-show-auth="logout">Login or Create Account</h2>
 
 <div ng-show-auth="login">
+	<div class="form-group" ng-show="paused">
+		<h3 class="pull-right">{{breakCounter | formatTime}}</h3>
+		<h3>You're on break. <span class="text-danger" ng-show="slacking">Now You're  Slacking. Get to Work!</span></h3>
+		<p class="lead">Rest your eyes, do an office stretch, grab some coffee!</p>
+	</div>
 	<div class="form-group">
-		<input type="text" ng-hide="working" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
-		<input type="text" ng-show="working" ng-model="theTask" class="form-control input-lg input-disabled" disabled="disabled" placeholder="What are you working on?">
+		<input type="text" ng-show="working == false || paused == true" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
+		<input type="text" ng-show="working && ! paused" ng-model="theTask" class="form-control input-lg input-disabled" disabled="disabled" placeholder="What are you working on?">
 	</div>
 	<div class="form-group lead text-center" ng-show="working">
-		{{counter | formatTime}}
+		This task taken <strong>{{counter | formatTime}}</strong> so far
 	</div>
 	<div class="form-group text-center">
 		<button type="submit" class="btn btn-info btn-lg" ng-show=" ! working" ng-click="addTask()"><span class="glyphicon glyphicon-time"></span> Start Working</button>
-		<button type="submit" class="btn btn-warning btn-lg" ng-show="working" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span> Take a Break</button>
+		<button type="submit" class="btn btn-warning btn-lg" ng-show="working && ! paused" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span> Take a Break</button>
 		<button type="submit" class="btn btn-success btn-lg" ng-show="paused" ng-click="resume()"><span class="glyphicon glyphicon-retweet"></span> Resume</button>
 		<button type="submit" class="btn btn-danger btn-lg" ng-show="working" ng-click="finish()"><span class="glyphicon glyphicon-check"></span> Task Complete</button>
 	</div>
