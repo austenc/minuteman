@@ -7,6 +7,7 @@
 		<p class="lead">Rest your eyes, do an office stretch, grab some coffee!</p>
 	</div>
 	<div class="form-group">
+		<h3 ng-show="working == true && paused == false">Working on...</h3>
 		<input type="text" ng-show="working == false || paused == true" ng-model="theTask" class="form-control input-lg" placeholder="What are you working on?">
 		<input type="text" ng-show="working && ! paused" ng-model="theTask" class="form-control input-lg input-disabled" disabled="disabled" placeholder="What are you working on?">
 	</div>
